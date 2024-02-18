@@ -10,6 +10,10 @@ type TransactionRepository struct {
 	DB *gorm.DB
 }
 
+func NewTransactionRepository(db *gorm.DB) *TransactionRepository {
+	return &TransactionRepository{DB: db}
+}
+
 func (r *TransactionRepository) GetTransactionByID(id uint) (*model.Transaction, error) {
 	var transaction model.Transaction
 	if err := r.DB.First(&transaction, id).Error; err != nil {

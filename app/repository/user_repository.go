@@ -10,6 +10,10 @@ type UserRepository struct {
 	DB *gorm.DB
 }
 
+func NewUserRepository(db *gorm.DB) *UserRepository {
+	return &UserRepository{DB: db}
+}
+
 func (r *UserRepository) GetUserByID(id uint) (*model.User, error) {
 	var user model.User
 	if err := r.DB.First(&user, id).Error; err != nil {

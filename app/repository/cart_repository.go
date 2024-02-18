@@ -10,6 +10,10 @@ type CartRepository struct {
 	DB *gorm.DB
 }
 
+func NewCartRepository(db *gorm.DB) *CartRepository {
+	return &CartRepository{DB: db}
+}
+
 func (r *CartRepository) GetCartByID(id uint) (*model.Cart, error) {
 	var cart model.Cart
 	if err := r.DB.First(&cart, id).Error; err != nil {
