@@ -1,6 +1,6 @@
 # BE Go Lang Online Store
 
-RESTful API for an online store built with Go, Gin framework, Gorm and MySQL database. It provides endpoints for managing users, products, categories, carts, and transactions.
+RESTful API for an online store built with Go, Gin framework, Gorm and MySQL database, also applying clean architecture. It provides endpoints for managing users, products, categories, carts, and transactions.
 
 
 ### RESTful API Design
