@@ -36,7 +36,7 @@ func SetupRouter() *gin.Engine {
 
 	r.GET("/products", productController.GetAllProducts)
 	r.GET("/products/:id", productController.GetProductByID)
-	r.GET("/products/:categoryID", productController.GetProductsByCategory)
+	r.GET("/products/category/:categoryID", productController.GetProductsByCategory)
 	r.POST("/products", productController.AddProduct)
 	r.PUT("/products/:id", productController.UpdateProduct)
 	r.DELETE("/products/:id", productController.DeleteProduct)

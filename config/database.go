@@ -2,13 +2,18 @@ package config
 
 import (
 	"go-on-store/app/model"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 func ConnectDB() *gorm.DB {
-	dsn := "root:210120@tcp(127.0.0.1:3306)/go-on-store?charset=utf8mb4&parseTime=True&loc=Local"
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	// dsn := "root:210120@tcp(127.0.0.1:3306)/go-on-store?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := dbUser + ":" + dbPassword + "@tcp(127.0.0.1:3306)/" + dbName + "?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open("mysql", dsn)
 	if err != nil {
 		panic(err)

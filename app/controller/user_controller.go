@@ -3,6 +3,7 @@ package controller
 import (
 	"go-on-store/app/model"
 	"go-on-store/app/service"
+	"go-on-store/config"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -51,7 +52,11 @@ func (c *UserController) Login(ctx *gin.Context) {
 	}
 
 	// Generate JWT token
-	token := "your_jwt_token"
+	token, err := config.GenerateToken(user.Username)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{"data": gin.H{"token": token}})
 }
