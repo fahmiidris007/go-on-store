@@ -2,6 +2,7 @@ package router
 
 import (
 	"go-on-store/app/controller"
+	"go-on-store/app/middleware"
 	"go-on-store/app/repository"
 	"go-on-store/app/service"
 	"go-on-store/config"
@@ -34,24 +35,27 @@ func SetupRouter() *gin.Engine {
 	r.POST("/register", userController.Register)
 	r.POST("/login", userController.Login)
 
-	r.GET("/products", productController.GetAllProducts)
-	r.GET("/products/:id", productController.GetProductByID)
-	r.GET("/products/category/:categoryID", productController.GetProductsByCategory)
-	r.POST("/products", productController.AddProduct)
-	r.PUT("/products/:id", productController.UpdateProduct)
-	r.DELETE("/products/:id", productController.DeleteProduct)
+	protected := r.Group("/")
+	protected.Use(middleware.Middleware())
+	{
+		protected.GET("/products", productController.GetAllProducts)
+		protected.GET("/products/:id", productController.GetProductByID)
+		protected.GET("/products/category/:categoryID", productController.GetProductsByCategory)
+		protected.POST("/products", productController.AddProduct)
+		protected.PUT("/products/:id", productController.UpdateProduct)
+		protected.DELETE("/products/:id", productController.DeleteProduct)
 
-	r.GET("/categories", categoryController.GetAllCategories)
-	r.GET("/categories/:id", categoryController.GetCategoryByID)
-	r.POST("/categories", categoryController.AddCategory)
-	r.PUT("/categories/:id", categoryController.UpdateCategory)
-	r.DELETE("/categories/:id", categoryController.DeleteCategory)
+		protected.GET("/categories", categoryController.GetAllCategories)
+		protected.GET("/categories/:id", categoryController.GetCategoryByID)
+		protected.POST("/categories", categoryController.AddCategory)
+		protected.PUT("/categories/:id", categoryController.UpdateCategory)
+		protected.DELETE("/categories/:id", categoryController.DeleteCategory)
 
-	r.GET("/cart/:userID", cartController.GetCartItems)
-	r.POST("/cart", cartController.AddToCart)
-	r.DELETE("/cart/:cartID", cartController.RemoveFromCart)
+		protected.GET("/cart/:userID", cartController.GetCartItems)
+		protected.POST("/cart", cartController.AddToCart)
+		protected.DELETE("/cart/:cartID", cartController.RemoveFromCart)
 
-	r.POST("/checkout", transactionController.Checkout)
-
+		protected.POST("/checkout", transactionController.Checkout)
+	}
 	return r
 }
