@@ -53,8 +53,10 @@ func SetupRouter() *gin.Engine {
 
 		protected.GET("/cart/:userID", cartController.GetCartItems)
 		protected.POST("/cart", cartController.AddToCart)
+		protected.PUT("/cart/:cartID", cartController.UpdateCart)
 		protected.DELETE("/cart/:cartID", cartController.RemoveFromCart)
 
+		protected.GET("/checkout/:userID", transactionController.GetTransactionByUserID)
 		protected.POST("/checkout", transactionController.Checkout)
 	}
 	return r

@@ -14,18 +14,14 @@ func NewTransactionRepository(db *gorm.DB) *TransactionRepository {
 	return &TransactionRepository{DB: db}
 }
 
-func (r *TransactionRepository) GetTransactionByID(id uint) (*model.Transaction, error) {
-	var transaction model.Transaction
-	if err := r.DB.First(&transaction, id).Error; err != nil {
+func (r *TransactionRepository) GetTransactionByUserID(userID uint) ([]*model.Transaction, error) {
+	var transactions []*model.Transaction
+	if err := r.DB.Where("user_id = ?", userID).Find(&transactions).Error; err != nil {
 		return nil, err
 	}
-	return &transaction, nil
+	return transactions, nil
 }
 
 func (r *TransactionRepository) AddTransaction(transaction *model.Transaction) error {
-	return r.DB.Save(transaction).Error
-}
-
-func (r *TransactionRepository) CreateTransaction(transaction *model.Transaction) error {
 	return r.DB.Create(transaction).Error
 }

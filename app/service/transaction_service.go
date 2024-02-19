@@ -13,8 +13,8 @@ func NewTransactionService(repo *repository.TransactionRepository) *TransactionS
 	return &TransactionService{repo: repo}
 }
 
-func (s *TransactionService) GetTransactionByID(id uint) (*model.Transaction, error) {
-	return s.repo.GetTransactionByID(id)
+func (s *TransactionService) GetTransactionByUserID(userID uint) ([]*model.Transaction, error) {
+	return s.repo.GetTransactionByUserID(userID)
 }
 
 func (s *TransactionService) AddTransaction(transaction *model.Transaction) error {

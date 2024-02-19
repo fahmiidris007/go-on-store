@@ -25,6 +25,10 @@ func (s *CartService) AddCart(cart *model.Cart) error {
 	return s.repo.AddCart(cart)
 }
 
+func (s *CartService) UpdateCart(cart *model.Cart) error {
+	return s.repo.UpdateCart(cart)
+}
+
 func (s *CartService) DeleteCart(cart *model.Cart) error {
 	return s.repo.DeleteCart(cart)
 }

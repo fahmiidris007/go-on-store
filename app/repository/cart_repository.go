@@ -23,6 +23,10 @@ func (r *CartRepository) GetCartByID(id uint) (*model.Cart, error) {
 }
 
 func (r *CartRepository) AddCart(cart *model.Cart) error {
+	return r.DB.Create(cart).Error
+}
+
+func (r *CartRepository) UpdateCart(cart *model.Cart) error {
 	return r.DB.Save(cart).Error
 }
 
